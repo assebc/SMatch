@@ -12,6 +12,6 @@ export default function LoadingScreen() {
 
 const styles = StyleSheet.create({
     global_container: {
-        // backgroundColor: "#E8F3D6",
+
     }
 })
