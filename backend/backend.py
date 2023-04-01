@@ -1,6 +1,9 @@
 import sqlite3
 import jwt
 from database_creator import *
+from datetime import datetime, timedelta
+import time
+import os
 
 class backend:
     def __init__(self):
@@ -13,6 +16,8 @@ class backend:
             try:
                 connection = sqlite3.connect('SmartMatch')
                 connected=True
+                key = os.urandom(32)
+                self.key = key
                 print("Connected")
             #else create db then connect to it
             except:
@@ -23,14 +28,19 @@ class backend:
 
         self.connection = connection
 
-    def createJWT(userId):
+    def createJWT(self, userId):
+        date_time = datetime.now()
+        date_time = date_time + timedelta(minutes=30)
+        
         encoded = jwt.encode({
-            "userId":userId,
-            "exp":
-            "iss"
-        }, "secret", algorithm="HS256") 
+            "userId": userId,
+            "exp": time.mktime(date_time.timetuple())
+            #"iss": "backend engine"
+        }, key=self.key)
+        
+        return encoded
 
-    def convertToBinaryData(filename):
+    def convertToBinaryData(self, filename):
         # Convert digital data to binary format
         with open(filename, 'rb') as file:
             blobData = file.read()
@@ -58,11 +68,24 @@ class backend:
                                     """
         createUserData = (username,email,pwd,payload["academicArea"],payload["academicDegree"],payload["picture"])
         cursor.execute(sqlite_createNewUser_query, createUserData)
-        return 200
+        cursor.execute('''
+                    SELECT max(id) FROM user''')
+        userid = cursor.fetchone()
+        print(userid)
+        return 200,self.createJWT(result)
 
     def login(self, payload):
         username = payload["username"]
         email = payload["email"]
         pwd = payload["pwd"]
 
-backend()
+
+json = {
+    "username": "teste",
+    "pwd": "1234",
+    "email": "email1@gmail.com",
+    "academicArea": "computer science",
+    "academicDegree": "3",
+    "picture": "a"
+}
+backend().createNewUser(json)
