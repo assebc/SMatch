@@ -1,52 +1,34 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import DatePicker from 'react-native-datepicker';
+import React, { useState } from "react";
+import { Button, View } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const AgeSelector = () => {
-  const [birthdate, setBirthdate] = useState(new Date());
+const Example = () => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const calculateAge = (birthdate) => {
-    const diffMs = Date.now() - birthdate.getTime();
-    const ageDt = new Date(diffMs);
-    return Math.abs(ageDt.getUTCFullYear() - 1970);
-  }
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleConfirm = (date) => {
+    console.warn("A date has been picked: ", date);
+    hideDatePicker();
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Birthdate:</Text>
-      <DatePicker
-        style={styles.datePicker}
-        date={birthdate}
+    <View>
+      <Button title="Show Date Picker" onPress={showDatePicker} />
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
         mode="date"
-        maxDate={new Date()}
-        onDateChange={(date) => setBirthdate(date)}
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
       />
-      <Text style={styles.age}>{calculateAge(new Date(birthdate))} years old</Text>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    marginBottom: 40,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-  },
-  label: {
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  datePicker: {
-    width: '100%',
-    marginBottom: 20,
-  },
-  age: {
-    marginTop: 10,
-  },
-});
-
-export default AgeSelector;
+export default Example;
