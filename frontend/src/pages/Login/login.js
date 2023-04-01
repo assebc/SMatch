@@ -33,7 +33,7 @@ export default function Login({ navigation }) {
                     />
                     <ButtonInput
                         title="LOGIN"
-                        // onPress={() => navigation.navigate("")}
+                        // onPress={() => navigation.navigate("TabBar")}
                         wh={250}
                     />
                 </View>
@@ -50,7 +50,8 @@ export default function Login({ navigation }) {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={styles.footer}>
+            <View style = {styles.footer}>
+
                 <Footer />
             </View>
         </View>

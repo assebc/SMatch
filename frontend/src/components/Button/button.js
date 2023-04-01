@@ -20,6 +20,8 @@ export default function ButtonInput(props) {
         },
     });
 
+
+// export default ButtonInput;
     return (
         <View>
             <TouchableOpacity
@@ -34,3 +36,4 @@ export default function ButtonInput(props) {
         </View>
     );
 }
+

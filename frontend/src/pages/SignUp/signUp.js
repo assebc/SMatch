@@ -42,6 +42,7 @@ export default function SignUp({ navigation }, props) {
                     <TouchableOpacity
                         onPress={() => navigation.navigate("LoadingScreen")}
                     >
+
                         <Text>Already have an account?</Text>
                     </TouchableOpacity>
                 </View>

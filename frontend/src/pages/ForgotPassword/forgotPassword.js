@@ -30,7 +30,7 @@ const ForgotPassword = ({ navigation }, props) => {
                     <View style={styles.relink}>
                         <TouchableOpacity
                             style={styles.quizButton}
-                            onPress={() => navigation.navigate("LoadingScreen")}
+                            onPress={() => navigation.navigate("Login")}
                         >
                             <Text>Already have an account?</Text>
                         </TouchableOpacity>
