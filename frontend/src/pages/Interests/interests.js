@@ -1,15 +1,9 @@
+import * as data from "./interests.json";
+const word = data.interests;
+
 const Interests = (props) => {
 
-    const handleImport = async () => {
-        try{
-            const response = await AppRegistry.get(`interests`)
-            if (response.status === 200){
-                getInterests();
-            }
-        } catch (err){
-            err.response.data.error;
-        }
-    }
+    
 
     return (
         undefined
