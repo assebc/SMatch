@@ -1,38 +1,38 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { COLORS } from '../../constants/constants.js';
 
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
-import ButtonInput from "../../components/Button/button.js";
+import ProfilePicModal from "./ProfilePictModal.js"
 
-import { COLORS } from '../../constants/constants.js';
-
-const CreateProfile = ({ navigation }, props) => {
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
+const CreateProfile = ({ navigation }) => {
+    const [showProfilePicModal, setShowProfilePicModal] = useState(false)
 
     return (
         <View style = {styles.global}>
-            <View style = {styles.image_container}>
+            <View style = {styles.profile_picture_container}>
                 <Image
-                    source = {require("../../assets/favicon_watermark_w.png")}
-                    style = {styles.image}
+                    source={require("../../assets/profile_icon.png")}
+                    style={styles.image}
                 />
+                <TouchableOpacity
+                    onPress={() => setShowProfilePicModal(true)}
+                >
+                    <Text >Select picture</Text>
+                </TouchableOpacity>
             </View>
-            <View style={styles.content}>
-                <View style={styles.form_container}>
-                    <View style={styles.form}>
-                        <Input placeholder="Image" secureTextEntry={false} />
-                        <Input placeholder="Username" secureTextEntry={true} required/>
-                        <Input placeholder="Date of Birth" secureTextEntry={true} required/>
-                        <Input placeholder="Academic Level" secureTextEntry={true}/>
-                        <ButtonInput title="NEXT" onclick={() => navigation.navigate("Interests")}/>
-                    </View>
-                </View>
-                <View style = {styles.footer}>
-                    <Footer />
-                </View>
+            <View style = {styles.form_container}>
+                <Input placeholder="Name" secureTextEntry={false}/>
+                {/* Data de nascimento */}
+                {/* DropDown com escolaridade */}
             </View>
+            <View style = {styles.footer}>
+                <Footer />
+            </View>
+            <ProfilePicModal
+                visible = {showProfilePicModal}
+            />
         </View>
     )
 }
@@ -44,39 +44,27 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center"
     },
-    image_container: {
-        flex: 1,
-        marginTop: 20,
-        marginBottom: 20
+    profile_picture_container: {
+        flex: 3,
+        justifyContent: "center"
+
+    },
+    profile_picture: {
+
     },
     image: {
-        width: 300,
-        height: 300,
-    },
-    content: {
-        flex: 1,
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 20,
+        width: 100,
+        height: 100,
     },
     form_container: {
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    form: {
-        justifyContent: "center",
-        alignItems: "center",
-        width: 250,
-        borderRadius: 20,
+        flex:5
     },
     footer: {
+        bottom: 0,
+        width: '100%',
+        marginBottom: 10,
         justifyContent: "center",
         alignItems: "center",
-        bottom: 0,
-        marginBottom: 10,
-        width: '100%',
     }
 })
 

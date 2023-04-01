@@ -1,11 +1,13 @@
 import { Image, List } from 'antd-mobile'
 import React from 'react'
-import { users } from './users'
+import { View } from 'react-native'
+// import { users } from './user.js'
 
-export default () => {
+
+const Chat = () => {
   return (
-    <List header='用户列表'>
-      {users.map(user => (
+    <List>
+      {/* {users.map(user => (
         <List.Item
           key={user.name}
           prefix={
@@ -20,8 +22,10 @@ export default () => {
           description={user.description}
         >
           {user.name}
-        </List.Item>
-      ))}
+        </List.Item> */}
+      {/* ))} */}
     </List>
   )
 }
+
+export default Chat;
