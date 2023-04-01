@@ -28,6 +28,7 @@ class backend:
 
         self.connection = connection
 
+
     def createJWT(self, userId):
         date_time = datetime.now()
         date_time = date_time + timedelta(minutes=30)
@@ -39,12 +40,14 @@ class backend:
         }, key=self.key)
         
         return encoded
+        
 
     def convertToBinaryData(self, filename):
         # Convert digital data to binary format
         with open(filename, 'rb') as file:
             blobData = file.read()
         return blobData
+        
 
     def createNewUser(self, payload):
         username = payload["username"]
@@ -68,24 +71,16 @@ class backend:
                                     """
         createUserData = (username,email,pwd,payload["academicArea"],payload["academicDegree"],payload["picture"])
         cursor.execute(sqlite_createNewUser_query, createUserData)
+
         cursor.execute('''
                     SELECT max(id) FROM user''')
         userid = cursor.fetchone()
         print(userid)
         return 200,self.createJWT(result)
 
+
     def login(self, payload):
         username = payload["username"]
         email = payload["email"]
         pwd = payload["pwd"]
 
-
-json = {
-    "username": "teste",
-    "pwd": "1234",
-    "email": "email1@gmail.com",
-    "academicArea": "computer science",
-    "academicDegree": "3",
-    "picture": "a"
-}
-backend().createNewUser(json)
