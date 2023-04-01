@@ -37,6 +37,7 @@ class backend:
 
         self.connection = connection
 
+
     def createJWT(self, userId):
         date_time = datetime.now()
         date_time = date_time + timedelta(minutes=30)
@@ -59,6 +60,7 @@ class backend:
             return False
         else:
             return True
+
 
     def convertToBinaryData(self, filename):
         # Convert digital data to binary format
@@ -132,6 +134,7 @@ class backend:
 
         cursor.execute(sqlite3_update)
 
+        
 
     def createNewUser(self, payload):
         username = payload["name"]
@@ -161,15 +164,16 @@ class backend:
                                     """
 
         cursor.execute(sqlite_createNewUser_query)
+
         cursor.execute('''
                     SELECT max(id) FROM user''')
         userid = cursor.fetchone()[0]
         return 200,self.createJWT(int(userid))
 
+
     def login(self, payload):
         id = payload["id"]
         pwd = payload["pwd"]
-
   
         sqlite_checkUser_query = f""" SELECT id from user
                                         WHERE email = '{id}' AND pwd = '{pwd}' 
@@ -232,4 +236,3 @@ class backend:
 
         #expired token
         return 424, None
-

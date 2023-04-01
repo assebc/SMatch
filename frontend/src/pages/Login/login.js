@@ -7,9 +7,9 @@ import ButtonInput from "../../components/Button/button.js";
 
 import { COLORS } from '../../constants/constants.js';
 
-const Login = ({ navigation }, props) => {
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
+const Login = ({ navigation }) => {
+    // const [userName, setUserName] = useState();
+    // const [password, setPassword] = useState();
 
     return (
         <View style = {styles.global}>
@@ -19,31 +19,28 @@ const Login = ({ navigation }, props) => {
                     style = {styles.image}
                 />
             </View>
-            <View style={styles.content}>
-                <View style={styles.form_container}>
-                    <View style={styles.form}>
-                        <Input placeholder="Email" secureTextEntry={false} required />
-                        <Input placeholder="Password" secureTextEntry={true} required />
-                        <ButtonInput title="LOGIN" onclick={undefined}/>
-                    </View>
-                    <View style={styles.relink}>
-                        <TouchableOpacity
-                            // style={styles.quizButton}
-                            onPress={() => navigation.navigate("SignUp")}
-                        >
-                            <Text>Create an account</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            // style={styles.quizButton}
-                            onPress={() => navigation.navigate("ForgotPassword")}
-                        >
-                            <Text>Forgot Password?</Text>
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.form_container}>
+                <View style={styles.form}>
+                    <Input placeholder="Email" secureTextEntry={false} />
+                    <Input placeholder="Password" secureTextEntry={true} />
+                    <ButtonInput title="LOGIN" onPress = {() => navigation.navigate("Interests")}/>
+                    {/* TODO: navigation.navigate("MainPage")*/}
                 </View>
-                <View style = {styles.footer}>
-                    <Footer />
+                <View style={styles.relink}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("SignUp")}
+                    >
+                        <Text>Create an account</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("ForgotPassword")}
+                    >
+                        <Text>Forgot Password?</Text>
+                    </TouchableOpacity>
                 </View>
+            </View>
+            <View style = {styles.footer}>
+                <Footer />
             </View>
         </View>
     )
@@ -57,7 +54,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     image_container: {
-        flex: 1,
+        flex: 3,
         marginTop: 20,
         marginBottom: 20
     },
@@ -65,17 +62,12 @@ const styles = StyleSheet.create({
         width: 300,
         height: 300,
     },
-    content: {
-        flex: 1,
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 20,
-    },
     form_container: {
+        flex: 6,
         justifyContent: "center",
         alignItems: "center",
+        marginTop: 20,
+        marginBottom: 20,
     },
     form: {
         justifyContent: "center",
@@ -89,11 +81,11 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     footer: {
+        bottom: 0,
+        width: '100%',
+        marginBottom: 10,
         justifyContent: "center",
         alignItems: "center",
-        bottom: 0,
-        marginBottom: 10,
-        width: '100%',
     }
 })
 

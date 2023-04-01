@@ -7,9 +7,9 @@ import ButtonInput from "../../components/Button/button.js";
 
 import { COLORS } from '../../constants/constants.js';
 
-const Login = ({ navigation }, props) => {
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
+const SignUp = ({ navigation }, props) => {
+    // const [userName, setUserName] = useState();
+    // const [password, setPassword] = useState();
 
     return (
         <View style = {styles.global}>
@@ -19,26 +19,23 @@ const Login = ({ navigation }, props) => {
                     style = {styles.image}
                 />
             </View>
-            <View style={styles.content}>
-                <View style={styles.form_container}>
-                    <View style={styles.form}>
-                        <Input placeholder="Email" secureTextEntry={false} required/>
-                        <Input placeholder="Password" secureTextEntry={true} required/>
-                        <Input placeholder="Confirm Password" secureTextEntry={true} required/>
-                        <ButtonInput title="SIGN UP" onclick={undefined}/>
-                    </View>
-                    <View style={styles.relink}>
-                        <TouchableOpacity
-                            style={styles.quizButton}
-                            onPress={() => navigation.navigate("LoadingScreen")}
-                        >
-                            <Text >Already have an account?</Text>
-                        </TouchableOpacity>
-                    </View>
+            <View style={styles.form_container}>
+                <View style={styles.form}>
+                    <Input placeholder="Email" secureTextEntry={false}/>
+                    <Input placeholder="Password" secureTextEntry={true}/>
+                    <Input placeholder="Confirm Password" secureTextEntry={true}/>
+                    <ButtonInput title="SIGN UP" onPress = {() => navigation.navigate("CreateProfile")}/>
                 </View>
-                <View style = {styles.footer}>
-                    <Footer />
+                <View style={styles.relink}>
+                    <TouchableOpacity
+                        onPress={() => navigation.navigate("LoadingScreen")}
+                    >
+                        <Text >Already have an account?</Text>
+                    </TouchableOpacity>
                 </View>
+            </View>
+            <View style = {styles.footer}>
+                <Footer />
             </View>
         </View>
     )
@@ -52,7 +49,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     image_container: {
-        flex: 1,
+        flex: 3,
         marginTop: 20,
         marginBottom: 20
     },
@@ -60,17 +57,12 @@ const styles = StyleSheet.create({
         width: 300,
         height: 300,
     },
-    content: {
-        flex: 1,
-        width: '100%',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 20,
-    },
     form_container: {
+        flex: 6,
         justifyContent: "center",
         alignItems: "center",
+        marginTop: 20,
+        marginBottom: 20,
     },
     form: {
         justifyContent: "center",
@@ -80,16 +72,16 @@ const styles = StyleSheet.create({
     },
     relink: {
         width: 250,
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
-    footer: {
         justifyContent: "center",
         alignItems: "center",
+    },
+    footer: {
         bottom: 0,
-        marginBottom: 10,
         width: '100%',
+        marginBottom: 10,
+        justifyContent: "center",
+        alignItems: "center",
     }
 })
 
-export default Login;
+export default SignUp;

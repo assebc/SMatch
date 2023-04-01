@@ -25,7 +25,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     backgroundColor: COLORS.marron,
     borderRadius: BORDER_RADIUS.square
-
   },
 });
 
