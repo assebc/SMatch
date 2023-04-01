@@ -1,44 +1,57 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
 
-import { COLORS } from '../../constants/constants.js';
+import { COLORS } from "../../constants/constants.js";
 
-const SignUp = ({ navigation }, props) => {
-    // const [userName, setUserName] = useState();
-    // const [password, setPassword] = useState();
+export default function SignUp({ navigation }, props) {
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
 
     return (
-        <View style = {styles.global}>
-            <View style = {styles.image_container}>
+        <View style={styles.global}>
+            <View style={styles.image_container}>
                 <Image
-                    source = {require("../../assets/favicon_watermark_w.png")}
-                    style = {styles.image}
+                    source={require("../../assets/favicon_watermark_w.png")}
+                    style={styles.image}
                 />
             </View>
             <View style={styles.form_container}>
                 <View style={styles.form}>
-                    <Input placeholder="Email" secureTextEntry={false}/>
-                    <Input placeholder="Password" secureTextEntry={true}/>
-                    <Input placeholder="Confirm Password" secureTextEntry={true}/>
-                    <ButtonInput title="SIGN UP" onPress = {() => navigation.navigate("CreateProfile")}/>
+                    <Input
+                        placeholder="Email"
+                        secureTextEntry={false}
+                        onChangeText={(value) => setEmail(value)}
+                    />
+                    <Input placeholder="Password" secureTextEntry={true} />
+                    <Input
+                        placeholder="Confirm Password"
+                        secureTextEntry={true}
+                        onChangeText={(value) => setPassword(value)}
+                    />
+                    <ButtonInput
+                        title="SIGN UP"
+                        onPress={() => navigation.navigate("CreateProfile")}
+                        wh={250}
+                    />
                 </View>
                 <View style={styles.relink}>
                     <TouchableOpacity
                         onPress={() => navigation.navigate("LoadingScreen")}
                     >
-                        <Text >Already have an account?</Text>
+
+                        <Text>Already have an account?</Text>
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style = {styles.footer}>
+            <View style={styles.footer}>
                 <Footer />
             </View>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
@@ -46,12 +59,12 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.primary,
         justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
     },
     image_container: {
         flex: 3,
         marginTop: 20,
-        marginBottom: 20
+        marginBottom: 20,
     },
     image: {
         width: 300,
@@ -77,11 +90,9 @@ const styles = StyleSheet.create({
     },
     footer: {
         bottom: 0,
-        width: '100%',
+        width: "100%",
         marginBottom: 10,
         justifyContent: "center",
         alignItems: "center",
-    }
-})
-
-export default SignUp;
+    },
+});
