@@ -23,8 +23,7 @@ const Login = ({ navigation }) => {
                 <View style={styles.form}>
                     <Input placeholder="Email" secureTextEntry={false} />
                     <Input placeholder="Password" secureTextEntry={true} />
-                    <ButtonInput title="LOGIN" onPress = {() => navigation.navigate("Interests")}/>
-                    {/* TODO: navigation.navigate("MainPage")*/}
+                    <ButtonInput title="LOGIN" onPress = {() => navigation.navigate("TabBar")}/>
                 </View>
                 <View style={styles.relink}>
                     <TouchableOpacity
