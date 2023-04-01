@@ -7,9 +7,9 @@ import ButtonInput from "../../components/Button/button.js";
 
 import { COLORS } from '../../constants/constants.js';
 
-const Login = ({ navigation }, props) => {
-    const [userName, setUserName] = useState();
-    const [password, setPassword] = useState();
+const Login = ({ navigation }) => {
+    // const [userName, setUserName] = useState();
+    // const [password, setPassword] = useState();
 
     return (
         <View style = {styles.global}>
@@ -25,16 +25,15 @@ const Login = ({ navigation }, props) => {
                         <Input placeholder="Email" secureTextEntry={false} required />
                         <Input placeholder="Password" secureTextEntry={true} required />
                         <ButtonInput title="LOGIN" onclick={undefined}/>
+                        {/* TODO: navigation.navigate("MainPage")*/}
                     </View>
                     <View style={styles.relink}>
                         <TouchableOpacity
-                            // style={styles.quizButton}
                             onPress={() => navigation.navigate("SignUp")}
                         >
                             <Text>Create an account</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            // style={styles.quizButton}
                             onPress={() => navigation.navigate("ForgotPassword")}
                         >
                             <Text>Forgot Password?</Text>

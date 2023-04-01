@@ -7,7 +7,7 @@ import ButtonInput from "../../components/Button/button.js";
 
 import { COLORS } from '../../constants/constants.js';
 
-const SignUp = ({ navigation }, props) => {
+const CreateProfile = ({ navigation }, props) => {
     const [userName, setUserName] = useState();
     const [password, setPassword] = useState();
 
@@ -22,17 +22,11 @@ const SignUp = ({ navigation }, props) => {
             <View style={styles.content}>
                 <View style={styles.form_container}>
                     <View style={styles.form}>
-                        <Input placeholder="Email" secureTextEntry={false} required/>
-                        <Input placeholder="Password" secureTextEntry={true} required/>
-                        <Input placeholder="Confirm Password" secureTextEntry={true} required/>
-                        <ButtonInput title="SIGN UP" onclick={() => navigation.navigate(CreateProfile)}/>
-                    </View>
-                    <View style={styles.relink}>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate("LoadingScreen")}
-                        >
-                            <Text >Already have an account?</Text>
-                        </TouchableOpacity>
+                        <Input placeholder="Image" secureTextEntry={false} />
+                        <Input placeholder="Username" secureTextEntry={true} required/>
+                        <Input placeholder="Date of Birth" secureTextEntry={true} required/>
+                        <Input placeholder="Academic Level" secureTextEntry={true}/>
+                        <ButtonInput title="NEXT" onclick={() => navigation.navigate("Interests")}/>
                     </View>
                 </View>
                 <View style = {styles.footer}>
@@ -77,11 +71,6 @@ const styles = StyleSheet.create({
         width: 250,
         borderRadius: 20,
     },
-    relink: {
-        width: 250,
-        flexDirection: "row",
-        justifyContent: "space-between"
-    },
     footer: {
         justifyContent: "center",
         alignItems: "center",
@@ -91,4 +80,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SignUp;
+export default CreateProfile;
