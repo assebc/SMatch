@@ -15,7 +15,7 @@ export default function SignUp({ navigation }, props) {
         <View style={styles.global}>
             <View style={styles.image_container}>
                 <Image
-                    source={require("../../assets/favicon_watermark_w.png")}
+                    source={require("../../assets/logo_SMatch.png")}
                     style={styles.image}
                 />
             </View>
@@ -40,9 +40,8 @@ export default function SignUp({ navigation }, props) {
                 </View>
                 <View style={styles.relink}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("LoadingScreen")}
+                        onPress={() => navigation.navigate("Login")}
                     >
-
                         <Text>Already have an account?</Text>
                     </TouchableOpacity>
                 </View>
@@ -67,8 +66,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     image: {
-        width: 300,
-        height: 300,
+        width: 450,
+        height: 450,
     },
     form_container: {
         flex: 6,

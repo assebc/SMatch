@@ -12,7 +12,7 @@ export default function LoadingScreen({ navigation }) {
         <View style={styles.global}>
             <View style={styles.image_container}>
                 <Image
-                    source={require("../../assets/favicon_watermark_w.png")}
+                    source={require("../../assets/logo_SMatch.png")}
                     style={styles.image}
                 />
             </View>

@@ -8,14 +8,15 @@ export const SIZES = {
 };
 
 export const COLORS = {
-    primary: "#e8f3d6",
-    marron: "#fcf9be",
-    peach: "#ffdca9",
-    orange: "#faab78",
-    ebony: "#4b543b"
+    primary: "#f5edd6",
+    secondary: "#fbd9c6",
+    green: "#4b543b",
+    green_smooth: "#A4C994",
+    tertiary: "#f9b1b2",
+    yellow: "#FCF9BE",
 };
 
 export const BORDER_RADIUS = {
     round: 90,
-    square: 12
-}
+    square: 12,
+};

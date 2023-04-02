@@ -9,74 +9,68 @@ import CreateProfile from "./src/pages/CreateProfile/createProfile.js";
 
 import Interests from "./src/pages/Interests/interests.js";
 import Profile from "./src/pages/Profile/profile.js";
-import Slider from './src/pages/Slider/slider.js';
-import Chat from './src/pages/Chat/chat.js';
-import TabBar from './src/components/TabBar/tabBar.js'
+import Slider from "./src/pages/Slider/slider.js";
+import Chat from "./src/pages/Chat/chat.js";
+import TabBar from "./src/components/TabBar/tabBar.js";
 import Dos from "./src/pages/Dos/dos.js";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
-  return (
-    <NavigationContainer>
-        <Stack.Navigator>
-            <Stack.Screen
-                name = "LoadingScreen"
-                component = {LoadingScreen}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name = "Login"
-                component = {Login}
-                options={{ headerShown: false }}
-                />
-            <Stack.Screen
-                name = "SignUp"
-                component = {SignUp}
-                options={{ headerShown: false }}
-                />
-            <Stack.Screen
-                name = "CreateProfile"
-                component = {CreateProfile}
-                options={{ headerShown: false }}
-                />
-            <Stack.Screen
-                name = "Slider"
-                component = {Slider}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name = "ForgotPassword"
-                component = {ForgotPassword}
-                options={{ headerShown: false }}
-                />
-            <Stack.Screen
-                name = "Interests"
-                component = {Interests}
-                options={{ headerShown: false }}
-                />
-            <Stack.Screen
-                name = "Profile"
-                component = {Profile}
-                options={{ headerShown: false }}
-            />            
-            <Stack.Screen
-                name = "Chat"
-                component = {Chat}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name = "TabBar"
-                component = {TabBar}
-                option={{ headerShown: false }}
-            />
-            <Stack.Screen
-                    name="Dos"
-                    component={Dos}
+    return (
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="LoadingScreen"
+                    component={LoadingScreen}
                     options={{ headerShown: false }}
-            />
-        </Stack.Navigator>
-    </NavigationContainer>
-  );
+                />
+                <Stack.Screen
+                    name="Login"
+                    component={Login}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="SignUp"
+                    component={SignUp}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="CreateProfile"
+                    component={CreateProfile}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Slider"
+                    component={Slider}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="ForgotPassword"
+                    component={ForgotPassword}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Interests"
+                    component={Interests}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Profile"
+                    component={Profile}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Chat"
+                    component={Chat}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="TabBar"
+                    component={TabBar}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
 }

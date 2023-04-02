@@ -1,18 +1,56 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Image } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { COLORS } from "../../constants/constants";
 
-import Slider from '../../pages/Slider/slider';
-import Profile from '../../pages/Profile/profile';
+import Slider from "../../pages/Slider/slider";
+import Profile from "../../pages/Profile/profile";
+import Chat from "../../pages/Chat/chat";
 
 const Tab = createBottomTabNavigator();
 
 const TabBar = () => {
-  return (
-    <Tab.Navigator>
-      <Tab.Screen name="Slider" component={Slider} />
-      <Tab.Screen name="Profile" component={Profile} />
-    </Tab.Navigator>
-  );
-}
+    const getTabBarIcon = (route, focused, color, size) => {
+        let iconSource;
+
+        if (route.name === "Slider") {
+            iconSource = focused
+                ? require("../../assets/swipe_right.png")
+                : require("../../assets/swipe_right.png");
+        } else if (route.name === "Chat") {
+            iconSource = focused
+                ? require("../../assets/chat.png")
+                : require("../../assets/chat.png");
+        } else if (route.name === "Profile") {
+            iconSource = focused
+                ? require("../../assets/profile.png")
+                : require("../../assets/profile.png");
+        }
+
+        return (
+            <Image source={iconSource} style={{ width: size, height: size }} />
+        );
+    };
+
+    return (
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarActiveTintColor: "black",
+                tabBarInactiveTintColor: "grey",
+                tabBarShowLabel: false,
+                tabBarStyle: {
+                    display: "flex",
+                    visibility: "hidden",
+                },
+                headerShown: false,
+                tabBarIcon: ({ focused, color, size }) =>
+                    getTabBarIcon(route, focused, color, size),
+            })}
+        >
+            <Tab.Screen name="Slider" component={Slider} />
+            <Tab.Screen name="Chat" component={Chat} />
+            <Tab.Screen name="Profile" component={Profile} />
+        </Tab.Navigator>
+    );
+};
 
 export default TabBar;
-
