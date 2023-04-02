@@ -10,6 +10,7 @@ const Input = (props) => {
             placeholder={props.placeholder}
             onChangeText={props.onChangeText}
             secureTextEntry={props.secureTextEntry}
+            keyboardType={props.keyboardType}
             autoComplete="off"
             autoCorrect={false}
             autoCapitalize="none"
@@ -24,9 +25,10 @@ const styles = StyleSheet.create({
         margin: 12,
         padding: 10,
         borderWidth: 0,
-        backgroundColor: COLORS.marron,
+        backgroundColor: COLORS.green_smooth + 40,
         borderRadius: BORDER_RADIUS.square,
         fontSize: 16,
+        letterSpacing: 0.3,
     },
 });
 

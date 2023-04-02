@@ -1,26 +1,49 @@
 import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
+import api from "../../services/api.js";
+
+import { ACCESS_TOKEN_KEY } from "../../config.js";
 
 import { COLORS } from "../../constants/constants.js";
 
 export default function Login({ navigation }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [errorMessage, setErrorMessage] = useState();
+
+    const handleLogin = async () => {
+        try {
+            const response = await api.post("login", {
+                id: email,
+                pwd: password,
+            });
+
+            if (response.status == 200) {
+                await AsyncStorage.setItem(ACCESS_TOKEN_KEY, response.data.token);
+                navigation.navigate("TabBar");
+            }
+        } catch (err) {
+            setErrorMessage("Invalid login. Please try again!");
+            console.log(err);
+        }
+    };
 
     return (
         <View style={styles.global}>
             <View style={styles.image_container}>
                 <Image
-                    source={require("../../assets/favicon_watermark_w.png")}
+                    source={require("../../assets/logo_SMatch.png")}
                     style={styles.image}
                 />
             </View>
             <View style={styles.form_container}>
                 <View style={styles.form}>
+                    {errorMessage ? <Text>{errorMessage}</Text> : null}
                     <Input
                         placeholder="Email"
                         secureTextEntry={false}
@@ -33,7 +56,7 @@ export default function Login({ navigation }) {
                     />
                     <ButtonInput
                         title="LOGIN"
-                        onPress={() => navigation.navigate("TabBar")}
+                        onPress={() => handleLogin()}
                         wh={250}
                     />
                 </View>
@@ -70,8 +93,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     image: {
-        width: 300,
-        height: 300,
+        width: 450,
+        height: 450,
     },
     form_container: {
         flex: 6,

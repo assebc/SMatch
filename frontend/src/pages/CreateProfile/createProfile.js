@@ -8,6 +8,8 @@ import Footer from "../../components/Footer/footer.js";
 // import DatePicker from "../../components/DatePicker/datePicker.js";
 import DropdownMenu from "../../components/Dropdown/dropdown.js";
 import ButtonInput from "../../components/Button/button.js";
+import api from "../../services/api.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CreateProfile = ({ navigation }) => {
     const educationData = [
@@ -19,10 +21,34 @@ const CreateProfile = ({ navigation }) => {
         { label: "Doctorate", value: "6" },
     ];
 
-    // const [showProfilePicModal, setShowProfilePicModal] = useState(false)
+    // const [showProfilePicModal, setShowProfilePicModal] = useState(false);
     const [name, setName] = useState("");
-    // const [birthDate, setBirthDate] = useState();
+    const [birthDate, setBirthDate] = useState("");
+    const [number, setNumber] = useState("");
     const [education, setEducation] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const updateProfile = async () => {
+        try {
+            AsyncStorage.getItem("@app:session").then(async (token) => {
+                const response = await api.put("updateAccount", {
+                    token: token,
+                    name: name,
+                    bio: "",
+                    dob: birthDate,
+                    contact: number,
+                    academicDegree: education,
+                    academicArea: "",
+                });
+                if (response.status == 200) {
+                    navigation.navigate("Interests");
+                }
+            });
+        } catch (err) {
+            setErrorMessage("Invalid data. Please try again!");
+            console.log(err);
+        }
+    };
 
     return (
         <View style={styles.global}>
@@ -49,15 +75,24 @@ const CreateProfile = ({ navigation }) => {
                 {/* Birth Date */}
                 <Input placeholder="Birth Date" secureTextEntry={false} />
 
+                <Input
+                    placeholder="Phone Number"
+                    secureTextEntry={false}
+                    keyboardType="numeric"
+                    onCHangeText={(value) => setNumber(value)}
+                />
+
                 {/* Education */}
                 <DropdownMenu
+                    placeholder="Education Level"
                     data={educationData}
                     value={education}
                     onChange={(value) => setEducation(value.label)}
                 />
             </View>
+            {errorMessage ? <Text>{errorMessage}</Text> : null}
             <View style={styles.next_button}>
-                <ButtonInput title="NEXT" onPress={undefined} wh={100} />
+                <ButtonInput title="NEXT" onPress={updateProfile} wh={100} />
             </View>
             <View style={styles.footer}>
                 <Footer />
