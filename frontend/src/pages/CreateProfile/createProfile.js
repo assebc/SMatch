@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "../../constants/constants.js";
 
+import { ACCESS_TOKEN_KEY } from "../../config.js";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 // import ProfilePicModal from "./ProfilePictModal.js"
 // import DatePicker from "../../components/DatePicker/datePicker.js";
 import DropdownMenu from "../../components/Dropdown/dropdown.js";
 import ButtonInput from "../../components/Button/button.js";
+import api from "../../services/api.js";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CreateProfile = ({ navigation }) => {
     const educationData = [
@@ -19,10 +22,35 @@ const CreateProfile = ({ navigation }) => {
         { label: "Doctorate", value: "6" },
     ];
 
-    // const [showProfilePicModal, setShowProfilePicModal] = useState(false)
+    const [showProfilePicModal, setShowProfilePicModal] = useState(false)
     const [name, setName] = useState("");
-    // const [birthDate, setBirthDate] = useState();
+    const [birthDate, setBirthDate] = useState("");
+    const [number, setNumber] = useState("");
     const [education, setEducation] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const updateProfile = async () => {
+        try{
+            AsyncStorage.getItem('@app:session').then(async token => {
+
+                const response = await api.put("updateAccount", {
+                    token : token,
+                    name: name,
+                    dob: birthDate,
+                    contact: number,
+                    academicDegree: education,
+                    academicArea: ""
+                });
+                if (response.status == 200){
+                    navigation.navigate("TabBar");
+                }
+            }) ;
+        } catch (err){
+            setErrorMessage("Invalid data. Please try again!");
+            console.log(err);
+        }
+    }
+
 
     return (
         <View style={styles.global}>
@@ -53,6 +81,7 @@ const CreateProfile = ({ navigation }) => {
                     placeholder="Phone Number"
                     secureTextEntry={false}
                     keyboardType="numeric"
+                    onCHangeText={(value) => setNumber(value)}
                 />
 
                 {/* Education */}
@@ -62,8 +91,9 @@ const CreateProfile = ({ navigation }) => {
                     onChange={(value) => setEducation(value.label)}
                 />
             </View>
+            {errorMessage ? <Text>{errorMessage}</Text> : null}
             <View style={styles.next_button}>
-                <ButtonInput title="NEXT" onPress={undefined} wh={100} />
+                <ButtonInput title="NEXT" onPress={updateProfile} wh={100} />
             </View>
             <View style={styles.footer}>
                 <Footer />

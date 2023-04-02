@@ -10,12 +10,29 @@ import {
 } from "react-native";
 import { COLORS } from "../../constants/constants";
 
-import data from "./data.json";
-
 export default function Chat(props) {
     const [contacts, setContacts] = useState(data);
     const [searchText, setSearchText] = useState("");
     const [filteredContacts, setFilteredContacts] = useState(contacts);
+    let data = require("./data.json")
+    const getChat = async () => {
+        try{
+            AsyncStorage.getItem('@app:session').then(async token => {
+                const response = await api.get("getMatches", {
+                    token : token,
+                });
+
+                console.log(response)
+
+                if (response.status == 200){
+                    data.data = response.data;
+                }
+            });
+        } catch (err){
+            setErrorMessage("Invalid data. Please try again!");
+            console.log(err);
+        }
+    }
 
     const handleSearch = (text) => {
         setSearchText(text);
