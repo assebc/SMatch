@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "../../constants/constants.js";
 
-import { ACCESS_TOKEN_KEY } from "../../config.js";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 // import ProfilePicModal from "./ProfilePictModal.js"
@@ -22,7 +21,7 @@ const CreateProfile = ({ navigation }) => {
         { label: "Doctorate", value: "6" },
     ];
 
-    const [showProfilePicModal, setShowProfilePicModal] = useState(false)
+    // const [showProfilePicModal, setShowProfilePicModal] = useState(false);
     const [name, setName] = useState("");
     const [birthDate, setBirthDate] = useState("");
     const [number, setNumber] = useState("");
@@ -30,27 +29,25 @@ const CreateProfile = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const updateProfile = async () => {
-        try{
-            AsyncStorage.getItem('@app:session').then(async token => {
-
+        try {
+            AsyncStorage.getItem("@app:session").then(async (token) => {
                 const response = await api.put("updateAccount", {
-                    token : token,
+                    token: token,
                     name: name,
                     dob: birthDate,
                     contact: number,
                     academicDegree: education,
-                    academicArea: ""
+                    academicArea: "",
                 });
-                if (response.status == 200){
+                if (response.status == 200) {
                     navigation.navigate("TabBar");
                 }
-            }) ;
-        } catch (err){
+            });
+        } catch (err) {
             setErrorMessage("Invalid data. Please try again!");
             console.log(err);
         }
-    }
-
+    };
 
     return (
         <View style={styles.global}>
@@ -86,6 +83,7 @@ const CreateProfile = ({ navigation }) => {
 
                 {/* Education */}
                 <DropdownMenu
+                    placeholder="Education Level"
                     data={educationData}
                     value={education}
                     onChange={(value) => setEducation(value.label)}

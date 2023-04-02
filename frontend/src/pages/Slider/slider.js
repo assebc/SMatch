@@ -2,24 +2,23 @@ import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../../constants/constants";
 
 export default function Slider() {
-
     // let data = require("./data.json")
     const getSwipes = async () => {
-        try{
+        try {
             const response = await api.get("getSugestions", {
-                token : ACCESS_TOKEN_KEY,
+                token: ACCESS_TOKEN_KEY,
             });
 
-            console.log(response)
+            console.log(response);
 
-            if (response.status == 200){
+            if (response.status == 200) {
                 data.data = response.data;
             }
-        } catch (err){
+        } catch (err) {
             setErrorMessage("Invalid data. Please try again!");
             console.log(err);
         }
-    }
+    };
 
     return (
         <View style={styles.global}>

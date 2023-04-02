@@ -7,27 +7,26 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS, SIZES } from "../../constants/constants";
 
 export default function Profile() {
-    let data = require("./data.json");
+    const data = require("./data.json");
 
     const getProfile = async () => {
-        try{
-            AsyncStorage.getItem('@app:session').then(async token => {
+        try {
+            AsyncStorage.getItem("@app:session").then(async (token) => {
                 const response = await api.get("getProfileInfo", {
-                    token : token,
+                    token: token,
                 });
 
-                console.log(response)
+                console.log(response);
 
-                if (response.status == 200){
-                    console.log("feito")
-                    data.data = response.data;
+                if (response.status == 200) {
+                    console.log("feito");
                 }
             });
-        } catch (err){
+        } catch (err) {
             setErrorMessage("Invalid data. Please try again!");
             console.log(err);
         }
-    }
+    };
 
     return (
         <View style={styles.global}>
@@ -70,7 +69,7 @@ export default function Profile() {
             <View style={styles.interests_container}>
                 {data.interests.map((interest, index) => (
                     <View key={index} style={styles.interest_cont}>
-                        <Text style={styles.interest}>{data.interest}</Text>
+                        <Text style={styles.interest}>{interest}</Text>
                     </View>
                 ))}
             </View>

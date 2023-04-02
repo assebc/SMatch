@@ -1,31 +1,67 @@
 import { useState } from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { COLORS, SIZES } from "../../constants/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../services/api.js";
 
 import ButtonInput from "../../components/Button/button";
 
 export default function Interests() {
-    // const jsonData = require("./data.json");
-
     const data = [
-        "Math",
+        "Mathematics",
         "Portuguese",
-        "Music",
-        "Programing",
-        "Talking",
-        "Nature",
-        "Coffee",
+        "English",
+        "German",
+        "Physics",
+        "Chemistry",
+        "Economics",
+        "Biology",
+        "Geology",
+        "History",
+        "Computing",
+        "Engineering",
+        "Medicine",
+        "Nursing",
+        "Pharmacy",
+        "Education",
+        "Law",
+        "Psychology",
+        "Politics",
+        "Sports",
     ];
 
-    const [selectedInterest, setSelectedInterest] = useState(null);
+    const handleNext = async () => {
+        try {
+            AsyncStorage.getItem("@app:session").then(async (token) => {
+                const response = await api.put("updateAccount", {
+                    token: token,
+                    interests: clickedButtonNames,
+                });
+                if (response.status == 200) {
+                    navigation.navigate("Preferences");
+                }
+            });
+        } catch (err) {
+            setErrorMessage("Invalid data. Please try again!");
+            console.log(err);
+        }
+    };
 
-    function toggle(item) {
-        setSelectedInterest((prevInterests) => {
-            return prevInterests.map(interest) => {
-                return item == interest ? {...interest, }
-            };
-        });
-    }
+    // const [selectedInterest, setSelectedInterest] = useState(null);
+
+    // function toggle(item) {
+    //     setSelectedInterest((prevInterests) => {
+    //         return prevInterests.map(interest) => {
+    //             return item == interest ? {...interest, }
+    //         };
+    //     });
+    // }
+
+    const [clickedButtonNames, setClickedButtonNames] = useState([]);
+
+    const handleButtonClick = (name) => {
+        setClickedButtonNames([...clickedButtonNames, name]);
+    };
 
     return (
         <View style={styles.global}>
@@ -41,14 +77,14 @@ export default function Interests() {
             <View style={styles.interests_container}>
                 {data.map((interest, index) => (
                     <View key={index} style={styles.interest_cont}>
-                        <Pressable onPress={() => toggle(index)}>
+                        <Pressable onPress={() => handleButtonClick(interest)}>
                             <Text style={styles.interest}>{interest}</Text>
                         </Pressable>
                     </View>
                 ))}
             </View>
             <View style={styles.next_button}>
-                <ButtonInput title="NEXT" onPress={undefined} wh={100} />
+                <ButtonInput title="NEXT" onPress={() => handleNext} wh={100} />
             </View>
         </View>
     );
