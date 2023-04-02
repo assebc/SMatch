@@ -4,12 +4,32 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
+import api from "../../config.js";
 
 import { COLORS } from "../../constants/constants.js";
 
 export default function SignUp({ navigation }, props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [errorMessage, setErrorMessage] = useState();
+
+    const handleSignUp = async () => {
+        try{
+            const response = await api.post("signup", {
+                email,
+                password,
+            });
+
+            if (response.status == 200){
+                localStorage.setItem(ACCESS_TOKEN_KEY, response.data)
+                navigation.navigate("../../pages/CreateProfile/createProfile.js")
+            }
+        } catch (err){
+            setErrorMessage("Invalid login. Please try again!");
+            console.log(err);
+        }
+    };
+
 
     return (
         <View style={styles.global}>
@@ -21,6 +41,7 @@ export default function SignUp({ navigation }, props) {
             </View>
             <View style={styles.form_container}>
                 <View style={styles.form}>
+                    {errorMessage ? <Text>{errorMessage}</Text> : null} 
                     <Input
                         placeholder="Email"
                         secureTextEntry={false}
@@ -34,15 +55,14 @@ export default function SignUp({ navigation }, props) {
                     />
                     <ButtonInput
                         title="SIGN UP"
-                        onPress={() => navigation.navigate("CreateProfile")}
+                        onPress={() => handleSignUp()}
                         wh={250}
                     />
                 </View>
                 <View style={styles.relink}>
                     <TouchableOpacity
-                        onPress={() => navigation.navigate("LoadingScreen")}
+                        onPress={() => navigation.navigate("Login")}
                     >
-
                         <Text>Already have an account?</Text>
                     </TouchableOpacity>
                 </View>

@@ -12,7 +12,6 @@ import Profile from "./src/pages/Profile/profile.js";
 import Slider from './src/pages/Slider/slider.js';
 import Chat from './src/pages/Chat/chat.js';
 import TabBar from './src/components/TabBar/tabBar.js'
-import Dos from "./src/pages/Dos/dos.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -70,11 +69,6 @@ export default function App() {
                 name = "TabBar"
                 component = {TabBar}
                 option={{ headerShown: false }}
-            />
-            <Stack.Screen
-                    name="Dos"
-                    component={Dos}
-                    options={{ headerShown: false }}
             />
         </Stack.Navigator>
     </NavigationContainer>
