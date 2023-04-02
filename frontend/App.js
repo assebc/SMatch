@@ -6,7 +6,7 @@ import Login from "./src/pages/Login/login.js";
 import SignUp from "./src/pages/SignUp/signUp.js";
 import ForgotPassword from "./src/pages/ForgotPassword/forgotPassword.js";
 import CreateProfile from "./src/pages/CreateProfile/createProfile.js";
-import Interests from "./src/pages/Interests/interests.js";
+// import Interests from "./src/pages/Interests/interests.js";
 import TabBar from "./src/components/TabBar/tabBar.js";
 import Slider from "./src/pages/Slider/slider.js";
 import Chat from "./src/pages/Chat/chat.js";
@@ -44,6 +44,11 @@ export default function App() {
                     component={ForgotPassword}
                     options={{ headerShown: false }}
                 />
+                {/* <Stack.Screen
+                    name="Interests"
+                    component={Interests}
+                    options={{ headerShown: false }}
+                /> */}
                 <Stack.Screen
                     name="Preferences"
                     component={Preferences}

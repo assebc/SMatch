@@ -1,5 +1,8 @@
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../../constants/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import api from "../../services/api";
+import { useEffect } from "react";
 
 export default function Slider() {
     // let data = require("./data.json")
@@ -9,9 +12,7 @@ export default function Slider() {
                 token: ACCESS_TOKEN_KEY,
             });
 
-            console.log(response);
-
-            if (response.status == 200) {
+            if (response.status == 200){
                 data.data = response.data;
             }
         } catch (err) {
@@ -20,7 +21,28 @@ export default function Slider() {
         }
     };
 
+    const handleSwipe = async (props) => {
+        const {target, left, right } = props;
+        try{
+            AsyncStorage.getItem('@app:session').then(async token => {
+                await api.post("", {
+                    token : token,
+                    targetid: target,
+                    swipeL : left,
+                    swipeR : right,
+                });    
+            });
+        } catch (err){
+            setErrorMessage("Impossible to do that swipe right now!");
+            console.log(err);
+        }
+    };
+
+    useEffect(() => {
+        getSwipes();
+    }, []);
     return (
+
         <View style={styles.global}>
             <View style={styles.logo_container}>
                 <Image
@@ -39,12 +61,15 @@ export default function Slider() {
                     <Image
                         source={require("../../assets/profile_icon.png")}
                         style={styles.picture}
+                        onPress={() => handleSwipe({target: "", left: 1, right: 0})}
                     />
                 </View>
                 <TouchableOpacity onPress={undefined}>
                     <Image
                         source={require("../../assets/right.png")}
                         style={styles.butt_image}
+                        onPress={() => handleSwipe({target: "", left: 0, right: 1})}
+
                     />
                 </TouchableOpacity>
             </View>

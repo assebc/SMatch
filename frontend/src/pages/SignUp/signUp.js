@@ -7,13 +7,12 @@ import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
 import api from "../../services/api.js";
 
-import { ACCESS_TOKEN_KEY } from "../../config.js";
-
 import { COLORS } from "../../constants/constants.js";
 
 export default function SignUp({ navigation }, props) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [confirmPassword, setConfirmPassword] = useState();
     const [errorMessage, setErrorMessage] = useState();
 
     const handleSignUp = async () => {
@@ -24,8 +23,13 @@ export default function SignUp({ navigation }, props) {
             });
 
             if (response.status == 200) {
-                AsyncStorage.setItem('@app:session', response.data.token);
-                navigation.navigate("CreateProfile");
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if(emailRegex.test(email)){
+                    if(confirmPassword === password){
+                        AsyncStorage.setItem('@app:session', response.data.token);
+                        navigation.navigate("CreateProfile");
+                    } else setErrorMessage("Passwords do not match");
+                } else setErrorMessage("Invalid email format");
             }
         } catch (err) {
             setErrorMessage("Invalid sign up. Please try again!");
@@ -49,11 +53,15 @@ export default function SignUp({ navigation }, props) {
                         secureTextEntry={false}
                         onChangeText={(value) => setEmail(value)}
                     />
-                    <Input placeholder="Password" secureTextEntry={true} />
+                    <Input 
+                        placeholder="Password" 
+                        secureTextEntry={true} 
+                        onChangeText={(value) => setPassword(value)}
+                    />
                     <Input
                         placeholder="Confirm Password"
                         secureTextEntry={true}
-                        onChangeText={(value) => setPassword(value)}
+                        onChangeText={(value) => setConfirmPassword(value)}
                     />
                     <ButtonInput
                         title="SIGN UP"
