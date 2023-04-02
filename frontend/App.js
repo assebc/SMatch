@@ -11,6 +11,7 @@ import TabBar from "./src/components/TabBar/tabBar.js";
 import Slider from "./src/pages/Slider/slider.js";
 import Chat from "./src/pages/Chat/chat.js";
 import Profile from "./src/pages/Profile/profile.js";
+import Preferences from "./src/pages/Preferences/preferences.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,16 @@ export default function App() {
                     component={Interests}
                     options={{ headerShown: false }}
                 /> */}
+                <Stack.Screen
+                    name="Preferences"
+                    component={Preferences}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Interests"
+                    component={Interests}
+                    options={{ headerShown: false }}
+                />
                 <Stack.Screen
                     name="TabBar"
                     component={TabBar}

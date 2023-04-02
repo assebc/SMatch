@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import { COLORS } from "../../constants/constants";
 
 export default function DropdownMenu(props) {
@@ -19,7 +18,7 @@ export default function DropdownMenu(props) {
             maxHeight={300}
             labelField="label"
             valueField="value"
-            placeholder="Education Level"
+            placeholder={props.placeholder}
             searchPlaceholder="Search..."
             value={props.value}
             onChange={props.onChange}
@@ -31,6 +30,7 @@ const styles = StyleSheet.create({
     dropdown: {
         margin: 16,
         height: 50,
+        width: 200,
         borderBottomColor: COLORS.ebony,
         borderBottomWidth: 0.5,
     },

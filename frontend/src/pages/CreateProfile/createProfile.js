@@ -21,7 +21,7 @@ const CreateProfile = ({ navigation }) => {
         { label: "Doctorate", value: "6" },
     ];
 
-    const [showProfilePicModal, setShowProfilePicModal] = useState(false)
+    // const [showProfilePicModal, setShowProfilePicModal] = useState(false);
     const [name, setName] = useState("");
     const [birthDate, setBirthDate] = useState("");
     const [number, setNumber] = useState("");
@@ -29,17 +29,16 @@ const CreateProfile = ({ navigation }) => {
     const [errorMessage, setErrorMessage] = useState("");
 
     const updateProfile = async () => {
-        try{
-            AsyncStorage.getItem('@app:session').then(async token => {
-
+        try {
+            AsyncStorage.getItem("@app:session").then(async (token) => {
                 const response = await api.put("updateAccount", {
-                    token : token,
+                    token: token,
                     name: name,
                     bio: bio,
                     dob: birthDate,
                     contact: number,
                     academicDegree: education,
-                    academicArea: ""
+                    academicArea: "",
                 });
                 if (response.status == 200){
                     const dobRegexPT = /^([012]\d|3[01])-(0[1-9]|1[012])-(\d{4})$/;
@@ -50,13 +49,12 @@ const CreateProfile = ({ navigation }) => {
                         else setErrorMessage("Invalid phone number")
                     } else setErrorMessage("Invalid birth date format");              
                 }
-            }) ;
-        } catch (err){
+            });
+        } catch (err) {
             setErrorMessage("Invalid data. Please try again!");
             console.log(err);
         }
-    }
-
+    };
 
     return (
         <View style={styles.global}>
@@ -92,6 +90,7 @@ const CreateProfile = ({ navigation }) => {
 
                 {/* Education */}
                 <DropdownMenu
+                    placeholder="Education Level"
                     data={educationData}
                     value={education}
                     onChange={(value) => setEducation(value.label)}

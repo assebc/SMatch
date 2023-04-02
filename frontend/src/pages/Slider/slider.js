@@ -5,22 +5,21 @@ import api from "../../services/api";
 import { useEffect } from "react";
 
 export default function Slider() {
-
     // let data = require("./data.json")
     const getSwipes = async () => {
-        try{
+        try {
             const response = await api.get("getSugestions", {
-                token : ACCESS_TOKEN_KEY,
+                token: ACCESS_TOKEN_KEY,
             });
 
             if (response.status == 200){
                 data.data = response.data;
             }
-        } catch (err){
+        } catch (err) {
             setErrorMessage("Invalid data. Please try again!");
             console.log(err);
         }
-    }
+    };
 
     const handleSwipe = async (props) => {
         const {target, left, right } = props;
