@@ -1,7 +1,7 @@
 import { View, Image, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { COLORS, SIZES } from "../../constants/constants";
 
-const Slider = (props) => {
+export default function Slider() {
     return (
         <View style={styles.global}>
             <View style={styles.logo_container}>
@@ -33,22 +33,10 @@ const Slider = (props) => {
             <View style={styles.name_container}>
                 <Text style={styles.name}>{"Nelso Pe Grande"}</Text>
             </View>
-            <View style={styles.interests_container}>
-                {/* <FlatList
-                    data={interests}
-                    renderItem={({ item }) => (
-                        <View style={styles.interest_cont}>
-                            <Text style={styles.interest}>item</Text>
-                        </View>
-                    )}
-                    keyExtractor={(item) => item.toString()}
-                /> */}
-            </View>
+            <View style={styles.interests_container}></View>
         </View>
     );
-};
-
-export default Slider;
+}
 
 const styles = StyleSheet.create({
     global: {

@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    StyleSheet,
+    AsyncStorage,
+} from "react-native";
 
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
@@ -14,22 +21,21 @@ export default function SignUp({ navigation }, props) {
     const [errorMessage, setErrorMessage] = useState();
 
     const handleSignUp = async () => {
-        try{
+        try {
             const response = await api.post("signup", {
-                email,
-                password,
+                id: email,
+                pwd: password,
             });
-
-            if (response.status == 200){
-                localStorage.setItem(ACCESS_TOKEN_KEY, response.data)
-                navigation.navigate("../../pages/CreateProfile/createProfile.js")
+            console.log(response);
+            if (response.status == 200) {
+                await AsyncStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+                navigation.navigate("CreateProfile");
             }
-        } catch (err){
-            setErrorMessage("Invalid login. Please try again!");
+        } catch (err) {
+            setErrorMessage("Invalid sign up. Please try again!");
             console.log(err);
         }
     };
-
 
     return (
         <View style={styles.global}>
@@ -41,7 +47,7 @@ export default function SignUp({ navigation }, props) {
             </View>
             <View style={styles.form_container}>
                 <View style={styles.form}>
-                    {errorMessage ? <Text>{errorMessage}</Text> : null} 
+                    {errorMessage ? <Text>{errorMessage}</Text> : null}
                     <Input
                         placeholder="Email"
                         secureTextEntry={false}

@@ -1,6 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-
+import {
+    View,
+    Text,
+    Image,
+    TouchableOpacity,
+    StyleSheet,
+    AsyncStorage,
+} from "react-native";
 
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
@@ -10,29 +16,27 @@ import { ACCESS_TOKEN_KEY } from "../../config.js";
 
 import { COLORS } from "../../constants/constants.js";
 
-
 export default function Login({ navigation }) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [errorMessage, setErrorMessage] = useState();
-    
+
     const handleLogin = async () => {
-        try{
+        try {
             const response = await api.post("login", {
-                email,
-                password,
+                id: email,
+                pwd: password,
             });
 
-            if (response.status == 200){
-                localStorage.setItem(ACCESS_TOKEN_KEY, response.data)
-                navigation.navigate("../../components/TabBar/tabBar.js")
+            if (response.status == 200) {
+                await AsyncStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+                navigation.navigate("TabBar");
             }
-        } catch (err){
+        } catch (err) {
             setErrorMessage("Invalid login. Please try again!");
             console.log(err);
         }
     };
-
 
     return (
         <View style={styles.global}>
@@ -40,11 +44,11 @@ export default function Login({ navigation }) {
                 <Image
                     source={require("../../assets/logo_SMatch.png")}
                     style={styles.image}
-                    />
+                />
             </View>
             <View style={styles.form_container}>
                 <View style={styles.form}>
-                    {errorMessage ? <Text>{errorMessage}</Text> : null} 
+                    {errorMessage ? <Text>{errorMessage}</Text> : null}
                     <Input
                         placeholder="Email"
                         secureTextEntry={false}

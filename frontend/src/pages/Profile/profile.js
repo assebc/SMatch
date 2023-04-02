@@ -5,7 +5,7 @@ import ButtonInput from "../../components/Button/button";
 import { COLORS, SIZES } from "../../constants/constants";
 
 export default function Profile() {
-    const interests = ["Math", "Music", "1 break p/ hour", "Football", "Tea"];
+    const data = require("./data.json");
 
     return (
         <View style={styles.global}>
@@ -22,19 +22,19 @@ export default function Profile() {
                 />
             </View>
             <View style={styles.name_container}>
-                <Text style={styles.name}>{"Nuno Costa"}</Text>
+                <Text style={styles.name}>{data.name}</Text>
             </View>
             <View style={styles.info_container}>
-                <Text style={styles.text}>
+                {/* <Text style={styles.text}>
                     {"Hello, I am a computer scientist and this is my profile!"}
-                </Text>
+                </Text> */}
                 <View style={styles.text_container}>
                     <Text style={styles.text_bold}>Email: </Text>
-                    <Text style={styles.text}>{"nunorocosta@gmail.com"}</Text>
+                    <Text style={styles.text}>{data.email}</Text>
                 </View>
                 <View style={styles.text_container}>
                     <Text style={styles.text_bold}>Phone Number: </Text>
-                    <Text style={styles.text}>{"961 123 123"}</Text>
+                    <Text style={styles.text}>{data.contact}</Text>
                 </View>
                 {/* <View style={styles.text_container}>
                     <Text style={styles.text_bold}>Age: </Text>
@@ -46,17 +46,13 @@ export default function Profile() {
                 </View>
             </View>
             <View style={styles.interests_container}>
-                {/* <FlatList
-                    data={interests}
-                    renderItem={({ item }) => (
-                        <View style={styles.interest_cont}>
-                            <Text style={styles.interest}>item</Text>
-                        </View>
-                    )}
-                    keyExtractor={(item) => item.toString()}
-                /> */}
+                {data.interests.map((interest, index) => (
+                    <View key={index} style={styles.interest_cont}>
+                        <Text style={styles.interest}>{interest}</Text>
+                    </View>
+                ))}
             </View>
-            <View>
+            <View style={styles.editButton_container}>
                 <ButtonInput
                     title="Edit Profile"
                     onPress={undefined}
@@ -104,9 +100,9 @@ const styles = StyleSheet.create({
         letterSpacing: 0.5,
     },
     info_container: {
-        flex: 4,
+        flex: 3,
         marginTop: 30,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     text_container: {
         flexDirection: "row",
@@ -122,20 +118,34 @@ const styles = StyleSheet.create({
         letterSpacing: 0.3,
     },
     interests_container: {
-        flex: 6,
+        flex: 5,
+        flexDirection: "row",
+        flexWrap: "wrap",
         backgroundColor: COLORS.green_smooth + 40,
-        marginTop: -10,
         width: SIZES.width - 40,
-        height: 90,
+        height: "auto",
+        marginBottom: 30,
         borderWidth: 3,
         borderColor: COLORS.green,
         borderRadius: 20,
+        padding: 10,
     },
     interest_cont: {
-        height: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 30,
+        paddingHorizontal: 15,
+        backgroundColor: COLORS.green,
+        borderRadius: 15,
+        marginHorizontal: 5,
+        marginVertical: 5,
     },
     interest: {
+        color: "white",
         fontSize: 14,
         letterSpacing: 0.3,
+    },
+    editButton_container: {
+        marginBottom: 10,
     },
 });

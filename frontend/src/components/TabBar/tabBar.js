@@ -1,6 +1,5 @@
 import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { COLORS } from "../../constants/constants";
 
 import Slider from "../../pages/Slider/slider";
 import Profile from "../../pages/Profile/profile";
@@ -14,15 +13,15 @@ const TabBar = () => {
 
         if (route.name === "Slider") {
             iconSource = focused
-                ? require("../../assets/swipe_right.png")
-                : require("../../assets/swipe_right.png");
+                ? require("../../assets/slider_hover.png")
+                : require("../../assets/slider.png");
         } else if (route.name === "Chat") {
             iconSource = focused
-                ? require("../../assets/chat.png")
+                ? require("../../assets/chat_hover.png")
                 : require("../../assets/chat.png");
         } else if (route.name === "Profile") {
             iconSource = focused
-                ? require("../../assets/profile.png")
+                ? require("../../assets/profile_hover.png")
                 : require("../../assets/profile.png");
         }
 
