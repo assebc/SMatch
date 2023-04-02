@@ -1,0 +1,20 @@
+[
+    {
+        "id": 0,
+        "name": "Nelso Pe Grande",
+        "picture": "../../assets/profile.png",
+        "lastMessage": "Peidei-me todo bro"
+    },
+    {
+        "id": 1,
+        "name": "Passarinho Fascista",
+        "picture": "../../assets/profile.png",
+        "lastMessage": "Vou dormir cedo, porque tenho soninho :("
+    },
+    {
+        "id": 2,
+        "name": "Bessa #NoSleep",
+        "picture": "../../assets/profile.png",
+        "lastMessage": "Ahhhhh"
+    }
+]

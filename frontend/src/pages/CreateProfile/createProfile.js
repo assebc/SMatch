@@ -48,7 +48,13 @@ const CreateProfile = ({ navigation }) => {
 
                 {/* Birth Date */}
                 <Input placeholder="Birth Date" secureTextEntry={false} />
-                <Input placeholder="Cellphone Number" secureTextEntry={false} />
+
+                <Input
+                    placeholder="Phone Number"
+                    secureTextEntry={false}
+                    keyboardType="numeric"
+                />
+
                 {/* Education */}
                 <DropdownMenu
                     data={educationData}

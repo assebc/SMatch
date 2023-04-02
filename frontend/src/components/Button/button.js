@@ -6,7 +6,7 @@ import { BORDER_RADIUS, COLORS } from "../../constants/constants.js";
 export default function ButtonInput(props) {
     const styles = StyleSheet.create({
         button: {
-            backgroundColor: COLORS.ebony,
+            backgroundColor: COLORS.green,
             height: 40,
             width: props.wh,
             margin: 12,
@@ -17,11 +17,11 @@ export default function ButtonInput(props) {
         buttonText: {
             textAlign: "center",
             color: "white",
+            letterSpacing: 0.3,
         },
     });
 
-
-// export default ButtonInput;
+    // export default ButtonInput;
     return (
         <View>
             <TouchableOpacity
@@ -36,4 +36,3 @@ export default function ButtonInput(props) {
         </View>
     );
 }
-
