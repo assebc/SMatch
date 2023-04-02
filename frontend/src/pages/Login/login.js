@@ -1,18 +1,9 @@
 import React, { useState } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    StyleSheet,
-    AsyncStorage,
-} from "react-native";
-
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
 import api from "../../services/api.js";
-import { ACCESS_TOKEN_KEY } from "../../config.js";
 
 import { COLORS } from "../../constants/constants.js";
 
@@ -27,9 +18,8 @@ export default function Login({ navigation }) {
                 id: email,
                 pwd: password,
             });
-
+            console.log(response);
             if (response.status == 200) {
-                await AsyncStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
                 navigation.navigate("TabBar");
             }
         } catch (err) {

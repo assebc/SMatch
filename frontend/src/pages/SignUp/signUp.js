@@ -1,17 +1,11 @@
 import React, { useState } from "react";
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    StyleSheet,
-    AsyncStorage,
-} from "react-native";
+import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
-import api from "../../config.js";
+import api from "../../services/api.js";
 
 import { COLORS } from "../../constants/constants.js";
 
