@@ -7,8 +7,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS, SIZES } from "../../constants/constants";
 
 export default function Profile() {
-    const data = require("./data.json");
-
     const getProfile = async () => {
         try {
             AsyncStorage.getItem("@app:session").then(async (token) => {
@@ -16,9 +14,8 @@ export default function Profile() {
                     token: token,
                 });
 
-                console.log(response);
-
                 if (response.status == 200) {
+                    const data = response.data;
                     console.log("feito");
                 }
             });
@@ -76,7 +73,7 @@ export default function Profile() {
             <View style={styles.editButton_container}>
                 <ButtonInput
                     title="Edit Profile"
-                    onPress={() => getProfile}
+                    onPress={getProfile}
                     wh={150}
                 />
             </View>

@@ -12,19 +12,21 @@ import api from "../../services/api";
 import { useEffect } from "react";
 
 export default function Slider() {
-    // let data = require("./data.json")
-    const [errorMessage, setErrorMessage] = useState("");
+    var data = { name: "", interests: [] };
     const getSwipes = async () => {
         try {
-            const response = await api.get("getSugestions", {
-                token: ACCESS_TOKEN_KEY,
+            AsyncStorage.getItem("@app:session").then(async (token) => {
+                console.log(token);
+                const response = await api.get("getSugestions", {
+                    token: token,
+                });
+                console.log(response);
+                if (response.status == 200) {
+                    console.log(response);
+                    data = response.data();
+                }
             });
-
-            if (response.status == 200) {
-                data.data = response.data;
-            }
         } catch (err) {
-            setErrorMessage("Invalid data. Please try again!");
             console.log(err);
         }
     };
@@ -48,7 +50,7 @@ export default function Slider() {
 
     useEffect(() => {
         getSwipes();
-    }, []);
+    }, [1]);
     return (
         <View style={styles.global}>
             <View style={styles.logo_container}>
@@ -58,7 +60,7 @@ export default function Slider() {
                 />
             </View>
             <View style={styles.butts_pic_container}>
-                <TouchableOpacity onPress={undefined}>
+                <TouchableOpacity onPress={console.log("h")}>
                     <Image
                         source={require("../../assets/wrong.png")}
                         style={styles.butt_image}
@@ -73,7 +75,7 @@ export default function Slider() {
                         }
                     />
                 </View>
-                <TouchableOpacity onPress={undefined}>
+                <TouchableOpacity onPress={console.log("h")}>
                     <Image
                         source={require("../../assets/right.png")}
                         style={styles.butt_image}
@@ -84,18 +86,18 @@ export default function Slider() {
                 </TouchableOpacity>
             </View>
             <View style={styles.name_container}>
-                <Text style={styles.name}>{"Nelso Pe Grande"}</Text>
+                <Text style={styles.name}>{data.name}</Text>
             </View>
-            {/* <View style={styles.age}>
+            <View style={styles.age}>
                 <Text>{23} years</Text>
-            </View> */}
-            {/* <View style={styles.interests_container}>
+            </View>
+            <View style={styles.interests_container}>
                 {data.interests.map((interest, index) => (
                     <View key={index} style={styles.interest_cont}>
                         <Text style={styles.interest}>{interest}</Text>
                     </View>
                 ))}
-            </View> */}
+            </View>
         </View>
     );
 }
@@ -144,19 +146,30 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
     },
     interests_container: {
-        flex: 6,
+        flex: 5,
+        flexDirection: "row",
+        flexWrap: "wrap",
         backgroundColor: COLORS.green_smooth + 40,
-        marginTop: -10,
         width: SIZES.width - 40,
-        height: 90,
+        height: "auto",
+        marginBottom: 30,
         borderWidth: 3,
         borderColor: COLORS.green,
         borderRadius: 20,
+        padding: 10,
     },
     interest_cont: {
-        height: 5,
+        justifyContent: "center",
+        alignItems: "center",
+        height: 30,
+        paddingHorizontal: 15,
+        backgroundColor: COLORS.green,
+        borderRadius: 15,
+        marginHorizontal: 5,
+        marginVertical: 5,
     },
     interest: {
+        color: "white",
         fontSize: 14,
         letterSpacing: 0.3,
     },

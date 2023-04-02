@@ -37,7 +37,6 @@ export default function Interests({ navigation }) {
                     token: token,
                     interests: clickedButtonNames,
                 });
-                console.log(response.status);
                 if (response.status == 200) {
                     navigation.navigate("Preferences");
                 }

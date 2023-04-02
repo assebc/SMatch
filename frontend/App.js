@@ -59,6 +59,7 @@ export default function App() {
                     component={TabBar}
                     options={{ headerShown: false }}
                 />
+
                 <Stack.Screen
                     name="Slider"
                     component={Slider}
