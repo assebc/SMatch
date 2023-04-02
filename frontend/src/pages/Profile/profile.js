@@ -1,11 +1,33 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, FlatList } from "react-native";
 
+import api from "../../services/api";
 import ButtonInput from "../../components/Button/button";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { COLORS, SIZES } from "../../constants/constants";
 
 export default function Profile() {
-    const data = require("./data.json");
+    let data = require("./data.json");
+
+    const getProfile = async () => {
+        try{
+            AsyncStorage.getItem('@app:session').then(async token => {
+                const response = await api.get("getProfileInfo", {
+                    token : token,
+                });
+
+                console.log(response)
+
+                if (response.status == 200){
+                    console.log("feito")
+                    data.data = response.data;
+                }
+            });
+        } catch (err){
+            setErrorMessage("Invalid data. Please try again!");
+            console.log(err);
+        }
+    }
 
     return (
         <View style={styles.global}>
@@ -42,20 +64,20 @@ export default function Profile() {
                 </View> */}
                 <View style={styles.text_container}>
                     <Text style={styles.text_bold}>Education: </Text>
-                    <Text style={styles.text}>{"Bachelor's"}</Text>
+                    <Text style={styles.text}>{data.academicDegree}</Text>
                 </View>
             </View>
             <View style={styles.interests_container}>
                 {data.interests.map((interest, index) => (
                     <View key={index} style={styles.interest_cont}>
-                        <Text style={styles.interest}>{interest}</Text>
+                        <Text style={styles.interest}>{data.interest}</Text>
                     </View>
                 ))}
             </View>
             <View style={styles.editButton_container}>
                 <ButtonInput
                     title="Edit Profile"
-                    onPress={undefined}
+                    onPress={() => getProfile}
                     wh={150}
                 />
             </View>

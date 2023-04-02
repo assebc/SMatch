@@ -7,6 +7,8 @@ import Footer from "../../components/Footer/footer.js";
 import ButtonInput from "../../components/Button/button.js";
 import api from "../../services/api.js";
 
+import { ACCESS_TOKEN_KEY } from "../../config.js";
+
 import { COLORS } from "../../constants/constants.js";
 
 export default function SignUp({ navigation }, props) {
@@ -17,12 +19,12 @@ export default function SignUp({ navigation }, props) {
     const handleSignUp = async () => {
         try {
             const response = await api.post("signup", {
-                id: email,
+                email: email,
                 pwd: password,
             });
-            console.log(response);
+
             if (response.status == 200) {
-                await AsyncStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
+                AsyncStorage.setItem('@app:session', response.data.token);
                 navigation.navigate("CreateProfile");
             }
         } catch (err) {
