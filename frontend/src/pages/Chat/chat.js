@@ -7,6 +7,7 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
+    Linking
 } from "react-native";
 import { COLORS } from "../../constants/constants";
 
@@ -79,6 +80,7 @@ export default function Chat(props) {
                                 <Image
                                     style={styles.whatsapp_logo}
                                     source={require("../../assets/whatsapp.png")}
+                                    onPress={() => Linking.openURL(`whatsapp://send?phone=${data.contact}`)}
                                 />
                             </TouchableOpacity>
                         </View>

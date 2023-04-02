@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "../../constants/constants.js";
 
-import { ACCESS_TOKEN_KEY } from "../../config.js";
 import Input from "../../components/Input/input.js";
 import Footer from "../../components/Footer/footer.js";
 // import ProfilePicModal from "./ProfilePictModal.js"
@@ -36,13 +35,20 @@ const CreateProfile = ({ navigation }) => {
                 const response = await api.put("updateAccount", {
                     token : token,
                     name: name,
+                    bio: bio,
                     dob: birthDate,
                     contact: number,
                     academicDegree: education,
                     academicArea: ""
                 });
                 if (response.status == 200){
-                    navigation.navigate("TabBar");
+                    const dobRegexPT = /^([012]\d|3[01])-(0[1-9]|1[012])-(\d{4})$/;
+                    const dobRegexEN = /^(\d{4})-(0[1-9]|1[012])-([012]\d|3[01])$/;
+                    if(dobRegexEN.test(birthDate)||dobRegexPT.test(birthDate)){
+                        const numberRegex = /[+]\d[9-12]/
+                        if(numberRegex.test(number)) navigation.navigate("Interests");
+                        else setErrorMessage("Invalid phone number")
+                    } else setErrorMessage("Invalid birth date format");              
                 }
             }) ;
         } catch (err){
