@@ -9,14 +9,14 @@ import api from "../../services/api.js";
 import DropdownMenu from "../../components/Dropdown/dropdown.js";
 import ButtonInput from "../../components/Button/button";
 
-export default function Preferences() {
+export default function Preferences({ navigation }) {
     const handleNext = async () => {
         try {
             AsyncStorage.getItem("@app:session").then(async (token) => {
-                const response = await api.put("updateAccount", {
+                const response = await api.put("updatePreferences", {
                     token: token,
                     bph: p4h,
-                    studaLocal: studyLocal,
+                    studyLocal: studyLocal,
                     music: musicOn,
                     schedule: timeOfDay,
                     talkative: 0,
@@ -119,7 +119,7 @@ export default function Preferences() {
                 />
             </View>
             <View style={styles.next_button}>
-                <ButtonInput title="NEXT" onPress={() => handleNext} wh={100} />
+                <ButtonInput title="NEXT" onPress={handleNext} wh={100} />
             </View>
         </View>
     );
