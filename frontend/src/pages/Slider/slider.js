@@ -33,7 +33,16 @@ export default function Slider() {
             <View style={styles.name_container}>
                 <Text style={styles.name}>{"Nelso Pe Grande"}</Text>
             </View>
-            <View style={styles.interests_container}></View>
+            {/* <View style={styles.age}>
+                <Text>{23} years</Text>
+            </View> */}
+            {/* <View style={styles.interests_container}>
+                {data.interests.map((interest, index) => (
+                    <View key={index} style={styles.interest_cont}>
+                        <Text style={styles.interest}>{interest}</Text>
+                    </View>
+                ))}
+            </View> */}
         </View>
     );
 }
